@@ -10,6 +10,7 @@ import {
   addComment,
   clearComments,
 } from "../../reducers/commentSlice.js";
+import { summarizeThreadThunk, clearSummary } from "../../reducers/aiSlice.js";
 
 import ThreadCard from "../../components/ThreadList/ThreadCard";
 import CommentForm from "../../components/Comment/CommentForm";
@@ -36,6 +37,12 @@ export default function Thread() {
     error: commentsError,
   } = useSelector((state) => state.comments);
 
+  const {
+    summary,
+    loading: summaryLoading,
+    error: summaryError,
+  } = useSelector((state) => state.ai);
+
   useEffect(() => {
     if (threadId) {
       dispatch(fetchThreadById(threadId));
@@ -45,8 +52,13 @@ export default function Thread() {
     return () => {
       dispatch(clearThread());
       dispatch(clearComments());
+      dispatch(clearSummary());
     };
   }, [dispatch, threadId]);
+
+  const handleSummarize = () => {
+    dispatch(summarizeThreadThunk(threadId));
+  };
 
   const handlePostComment = () => {
     if (!commentText.trim()) return;
@@ -92,6 +104,40 @@ export default function Thread() {
       {/* Thread Card */}
       <div className="mb-4">
         <ThreadCard thread={thread} goBack={() => navigate(-1)} />
+      </div>
+
+      {/* AI Summary Section */}
+      <div className="mb-4">
+        <Button
+          variant="outline-primary"
+          onClick={handleSummarize}
+          disabled={summaryLoading}
+          className="summarize-btn mb-3"
+        >
+          {summaryLoading ? (
+            <>
+              <Spinner animation="border" size="sm" className="me-2" />
+              Summarizing...
+            </>
+          ) : (
+            "✨ Summarize Thread"
+          )}
+        </Button>
+
+        {summaryError && (
+          <Alert variant="danger" className="mb-0">
+            Failed to generate summary: {summaryError}
+          </Alert>
+        )}
+
+        {summary && !summaryLoading && (
+          <Card className="summary-card">
+            <Card.Body>
+              <h6 className="summary-title">AI Summary</h6>
+              <p className="summary-text mb-0">{summary}</p>
+            </Card.Body>
+          </Card>
+        )}
       </div>
 
       {/* Post Comment Input */}

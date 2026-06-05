@@ -37,3 +37,8 @@ export const USER_API = {
   GET_BY_ID: (id) => `/users/${id}`,
   GET_PROFILE: '/users/profile',
 };
+
+// AI API Endpoints
+export const AI_API = {
+  SUMMARIZE: (threadId) => `/ai/summarize/${threadId}`,
+};

@@ -5,6 +5,7 @@ import currentThreadReducer from "../reducers/currentThreadSlice";
 import commentReducer from "../reducers/commentSlice";
 import themeReducer from "../reducers/themeSlice";
 import subredditReducer from "../reducers/subredditSlice";
+import aiReducer from "../reducers/aiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     comments: commentReducer, // comments for current thread
     theme: themeReducer, // dark mode theme
     subreddits: subredditReducer, // all subreddits
+    ai: aiReducer, // AI features (thread summarization)
   },
 });
