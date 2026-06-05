@@ -41,4 +41,5 @@ export const USER_API = {
 // AI API Endpoints
 export const AI_API = {
   SUMMARIZE: (threadId) => `/ai/summarize/${threadId}`,
+  REPHRASE: '/ai/rephrase',
 };

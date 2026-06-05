@@ -57,3 +57,22 @@ Write a single concise paragraph (3–5 sentences) summarizing what this thread 
 
   return response.text;
 };
+
+export const rephraseText = async (text, fieldType) => {
+  if (!text?.trim()) throw createAppError("No text provided to rephrase", 400);
+
+  const contextLabel =
+    { title: "thread title", body: "thread body", comment: "comment" }[fieldType] ?? "text";
+
+  const prompt = `Rephrase the following ${contextLabel} to be clearer, more engaging, and better written. Keep the same meaning and intent. Return only the rephrased text — no explanation, no quotes, no preamble.
+
+Text to rephrase:
+${text}`;
+
+  const response = await getAiClient().models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: prompt,
+  });
+
+  return response.text.trim();
+};

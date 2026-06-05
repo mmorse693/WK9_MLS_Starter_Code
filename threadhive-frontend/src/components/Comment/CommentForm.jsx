@@ -1,4 +1,5 @@
 import { Card, Form, Button } from "react-bootstrap";
+import RephraseWidget from "../AI/RephraseWidget";
 import './CommentForm.css';
 
 export default function CommentForm({ commentText, onCommentChange, onPostComment, disabled }) {
@@ -23,6 +24,12 @@ export default function CommentForm({ commentText, onCommentChange, onPostCommen
               onChange={onCommentChange}
               required
               className="comment-textarea"
+            />
+            <RephraseWidget
+              text={commentText}
+              fieldType="comment"
+              disabled={!commentText?.trim()}
+              onAccept={(rephrased) => onCommentChange({ target: { value: rephrased } })}
             />
           </Form.Group>
           <Button 

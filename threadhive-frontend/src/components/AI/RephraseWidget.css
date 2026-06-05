@@ -1,0 +1,26 @@
+.rephrase-btn {
+  font-size: 13px;
+  border-radius: 20px;
+  padding: 4px 14px;
+}
+
+.rephrase-preview {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background-color: var(--bg-light);
+}
+
+.rephrase-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.rephrase-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dark);
+}

@@ -6,6 +6,7 @@ import {
   createSubreddit as createSubredditThunk,
 } from "../../reducers/subredditSlice";
 import { Form } from "react-bootstrap";
+import RephraseWidget from "../AI/RephraseWidget";
 import "./CreateThreadForm.css";
 
 export default function CreateThreadForm({ onClose }) {
@@ -100,6 +101,12 @@ export default function CreateThreadForm({ onClose }) {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
+          <RephraseWidget
+            text={title}
+            fieldType="title"
+            disabled={!title.trim()}
+            onAccept={setTitle}
+          />
         </div>
 
         {/* Content */}
@@ -112,6 +119,12 @@ export default function CreateThreadForm({ onClose }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+          />
+          <RephraseWidget
+            text={content}
+            fieldType="body"
+            disabled={!content.trim()}
+            onAccept={setContent}
           />
         </div>
 

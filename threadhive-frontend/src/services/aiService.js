@@ -12,3 +12,12 @@ export const fetchThreadSummary = async (threadId) => {
   });
   return res.data.data.summary;
 };
+
+export const rephraseTextAPI = async (text, fieldType) => {
+  const res = await axiosInstance.post(
+    AI_API.REPHRASE,
+    { text, fieldType },
+    { headers: getAuthHeaders() }
+  );
+  return res.data.data.rephrased;
+};
